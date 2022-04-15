@@ -10,6 +10,7 @@ las células negras conectadas forman el "mar".
 #Cada isla debe contener solamente una celda numerada.
 #Cada isla debe contener solamente una celda numerada.
 
+#Clase que representa el tablero con sus respectivas dimensiones
 class Nurikabe:
 
     def __init__(self, n: int, m: int) -> None:
