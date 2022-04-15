@@ -16,7 +16,7 @@ class Nurikabe:
     def __init__(self, n: int, m: int) -> None:
         self.n = n
         self.m = m
-        self.tablero = [[None for i in range(m)] for j in range(n)]
+        self.tablero = [[0 for i in range(m)] for j in range(n)]
         print(self.tablero)
 
 
@@ -30,8 +30,11 @@ def leerTablero(archivo: str) -> Nurikabe:
     m = int(dimensiones[1])
     nkb = Nurikabe(n, m)
 
-    #Falta configurar el tablero del Nurikabe no entiendo como funciona en el archivo .nkb
-
+    for i in range(1, len(lineas)):
+        linea = lineas[i].split(",")
+        n = int(linea[1]) - 1
+        m = int(linea[2]) - 1
+        nkb.tablero[n][m] = int(linea[0])
 
     return nkb
 
@@ -39,3 +42,7 @@ def leerTablero(archivo: str) -> Nurikabe:
 
 
 nkb: Nurikabe = leerTablero("tablero1.nkb")
+for i in range(nkb.n):
+    for j in range(nkb.m):
+        print(str(nkb.tablero[i][j]), end=" ")
+    print()
