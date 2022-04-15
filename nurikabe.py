@@ -19,6 +19,14 @@ class Nurikabe:
         self.tablero = [[0 for i in range(m)] for j in range(n)]
         print(self.tablero)
 
+    #Imprime el tablero
+    def imprimirTablero(self):
+        for i in range(self.n):
+            for j in range(self.m):
+                print(str(self.tablero[i][j]), end=" ")
+            print()
+
+
 
 #Lee un tablero de un archivo y lo devuelve como un objeto Nurikabe
 def leerTablero(archivo: str) -> Nurikabe:
@@ -38,11 +46,5 @@ def leerTablero(archivo: str) -> Nurikabe:
 
     return nkb
 
-
-
-
 nkb: Nurikabe = leerTablero("tablero1.nkb")
-for i in range(nkb.n):
-    for j in range(nkb.m):
-        print(str(nkb.tablero[i][j]), end=" ")
-    print()
+nkb.imprimirTablero()
