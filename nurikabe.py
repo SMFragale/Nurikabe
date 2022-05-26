@@ -18,8 +18,8 @@ def printError(error: str):
 
 class Nurikabe:
 
-    MAR = f"{Colors.OKBLUE}M{Colors.ENDC}"
-    ISLA = f"{Colors.OKGREEN}I{Colors.ENDC}"
+    MAR = "M"
+    ISLA = "I"
 
     def __init__(self, n: int, m: int) -> None:
         self.n = n
@@ -28,9 +28,22 @@ class Nurikabe:
 
     # Imprime el tablero
     def imprimirTablero(self):
+        print(end="  ")
+        for num in range(5):
+            print(f"{num}", end=" ")
+
+        print()
+
         for i in range(self.n):
+            print(i, end=" ")
             for j in range(self.m):
-                print(str(self.tablero[i][j]), end=" ")
+                actual = self.tablero[i][j]
+                if actual == self.MAR:
+                    print(f"{Colors.OKBLUE}M{Colors.ENDC}", end=" ")
+                elif actual == self.ISLA:
+                    print(f"{Colors.OKGREEN}I{Colors.ENDC}", end=" ")
+                else:
+                    print(f"{Colors.BOLD}{actual}{Colors.ENDC}", end=" ")
             print()
     
     # Pinta la celda en la coordenada x, y.
