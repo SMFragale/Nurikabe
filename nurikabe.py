@@ -15,11 +15,24 @@ import numpy as np
 import os
 clear = lambda: os.system('cls')
 
+class Colors:
+    HEADER = '\033[95m'
+    OKBLUE = '\033[94m'
+    OKCYAN = '\033[96m'
+    OKGREEN = '\033[92m'
+    WARNING = '\033[93m'
+    FAIL = '\033[91m'
+    ENDC = '\033[0m'
+    BOLD = '\033[1m'
+    UNDERLINE = '\033[4m'
+
+def printError(error: str):
+    print(f"{Colors.FAIL}{error}{Colors.ENDC}")
 
 class Nurikabe:
 
-    MAR = "M"
-    ISLA = "I"
+    MAR = f"{Colors.OKBLUE}M{Colors.ENDC}"
+    ISLA = f"{Colors.OKGREEN}I{Colors.ENDC}"
 
     def __init__(self, n: int, m: int) -> None:
         self.n = n
@@ -37,7 +50,11 @@ class Nurikabe:
     #Retorna False si el juego continua, True si el juego se acabo
     def pintarCelda(self, x: int, y: int) -> bool:
         if x > self.n or y > self.m or x < 0 or y < 0:
-            print(f"Las coordenadas deben estar en el rango del tablero. x: {self.n}, y: {self.m}")
+            printError(f"Las coordenadas deben estar en el rango del tablero. x: {self.n}, y: {self.m}")
+            return
+        if self.tablero[x][y] != self.ISLA:
+            printError(f"No se puede pintar mar en esta posicion")
+            return
         
         copiaTablero = []
         for fila in self.tablero:
@@ -48,10 +65,10 @@ class Nurikabe:
 
         #Debe haber un solo mar, que no puede contener "piscinas", es decir, áreas de 2X2 de celdas negras.
         if not self.marUnico(x, y, copiaTablero):
-            print("Con esta jugada el mar no seria unico")
+            printError("Con esta jugada el mar no seria unico")
             return False
         if self.hayPiscinas(copiaTablero):
-            print("Con esta jugada se genera una piscina")
+            printError("Con esta jugada se genera una piscina")
             return False
         
         #if not self.revisarIslas(copiaTablero):
