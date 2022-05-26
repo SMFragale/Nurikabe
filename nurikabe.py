@@ -11,21 +11,8 @@ las células negras conectadas forman el "mar".
 #Debe haber un solo mar, que no puede contener "piscinas", es decir, áreas de 2X2 de celdas negras.
 
 #Clase que representa el tablero con sus respectivas dimensiones
-import numpy as np
-import os
-clear = lambda: os.system('cls')
-
-class Colors:
-    HEADER = '\033[95m'
-    OKBLUE = '\033[94m'
-    OKCYAN = '\033[96m'
-    OKGREEN = '\033[92m'
-    WARNING = '\033[93m'
-    FAIL = '\033[91m'
-    ENDC = '\033[0m'
-    BOLD = '\033[1m'
-    UNDERLINE = '\033[4m'
-
+import Colors
+    
 def printError(error: str):
     print(f"{Colors.FAIL}{error}{Colors.ENDC}")
 
@@ -166,25 +153,5 @@ def leerTablero(archivo: str) -> Nurikabe:
 
     return nkb
 
-clear()
-nkb: Nurikabe = leerTablero("tablero1.nkb")
-juegoTerminado = False
-while not juegoTerminado:
-    nkb.imprimirTablero()
-    print("Indique las coordenadas de una casilla para pintar el MAR siguiendo este formato:\n x,y") 
-    print("Donde 'x' corresponde a fila, 'y' a la columna")
-    print("Ejemplo: 1,1")
-    print("Nota: las filas y columnas empiezan desde el indice 0, por lo tanto para un tablero de 5x5 no es valido ingresar algo como: 1,5")
-    entrada = input()
-    entrada = entrada.split(",")
-    try:
-        x = int(entrada[0])
-        y = int(entrada[1])
-    except:
-        print("Error en las entradas")
-        continue
-    finally:
-        clear()
-    juegoTerminado = nkb.pintarCelda(x, y)
-    print()
+
     
