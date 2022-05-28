@@ -25,6 +25,11 @@ class Nurikabe:
         self.n = n
         self.m = m
         self.tablero = [[self.ISLA for i in range(m)] for j in range(n)]
+    
+    def __init__(self, tablero: list(list)) -> None:
+        self.n = len(tablero[0])
+        self.m = len(tablero)
+        self.tablero = tablero
 
     # Imprime el tablero
     def imprimirTablero(self):
@@ -165,6 +170,3 @@ def leerTablero(archivo: str) -> Nurikabe:
         nkb.tablero[n][m] = int(linea[0])
 
     return nkb
-
-
-    
