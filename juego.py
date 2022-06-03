@@ -9,6 +9,7 @@ def main():
     clear()
     nkb: Nurikabe = leerTablero("tablero1.nkb")
     juegoTerminado = False
+    print("Casillas ", nkb.casillasIslaReq)
     while not juegoTerminado:
         nkb.imprimirTablero()
         print("Indique las coordenadas de una casilla para pintar el MAR siguiendo este formato:\n x,y") 

@@ -25,11 +25,14 @@ class Nurikabe:
         self.n = n
         self.m = m
         self.tablero = [[self.ISLA for i in range(m)] for j in range(n)]
-    
-    def __init__(self, tablero: list(list)) -> None:
-        self.n = len(tablero[0])
-        self.m = len(tablero)
-        self.tablero = tablero
+        self.casillasIslaReq = 0
+
+    # def __init__(self, tablero: list(list)) -> None:
+    #     self.n = len(tablero[0])
+    #     self.m = len(tablero)
+    #     self.tablero = tablero
+    #     self.casillasIslaReq = 0
+    #     self.contarCasillasIslaRequeridas()
 
     # Imprime el tablero
     def imprimirTablero(self):
@@ -87,7 +90,39 @@ class Nurikabe:
             return True
         return False
 
-    
+    def pintarCeldaSinTexto(self, x: int, y: int) -> bool:
+        if x > self.n or y > self.m or x < 0 or y < 0:
+            return
+        if self.tablero[x][y] != self.ISLA:
+            return
+        
+        copiaTablero = []
+        for fila in self.tablero:
+            copiaTablero.append([j for j in fila])
+
+        copiaTablero[x][y] = self.MAR
+        #Realizar jugada fantasma
+
+        #Debe haber un solo mar, que no puede contener "piscinas", es decir, áreas de 2X2 de celdas negras.
+        if not self.marUnico(x, y, copiaTablero):
+            return False
+        if self.hayPiscinas(copiaTablero):
+            return False
+              
+        self.tablero[x][y] = self.MAR
+
+        if self.verificarTableroLleno():
+            return True
+        return False
+
+    # Obtiene el numero de casillas isla que debe tener el tablero ganador
+    def contarCasillasIslaRequeridas(self):
+        self.casillasIslaReq = 0
+        for i in range(len(self.tablero)):
+            for j in range(len(self.tablero[i])):
+                if type(self.tablero[i][j]) == int:
+                    self.casillasIslaReq += self.tablero[i][j]
+
     #Solo debe llamarse cuando el tablero esta lleno. Indica si el jugador gana o pierde
     def verificarTableroLleno(self):
         for i in range(len(self.tablero)):
@@ -168,5 +203,7 @@ def leerTablero(archivo: str) -> Nurikabe:
         n = int(linea[1]) - 1
         m = int(linea[2]) - 1
         nkb.tablero[n][m] = int(linea[0])
+
+    nkb.contarCasillasIslaRequeridas()
 
     return nkb
